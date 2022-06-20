@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 
+      - first-runner
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Copy readme file
+        run: |
+          mkdir -p ${{ secrets.SERVER_PATH }}
+          cp README.nd ${{ secrets.SERVER_PATH }}
