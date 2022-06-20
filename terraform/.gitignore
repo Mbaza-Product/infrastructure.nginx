@@ -1,5 +1,5 @@
 .terraform
-profiles
+profiles/development.tfvars
 .terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.*
