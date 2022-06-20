@@ -1,16 +1,24 @@
-version: '3'
+---
+version: "2.1"
 services:
-  nginx:
-    image: nginx:1.15-alpine
+  webserver:
+    image: lscr.io/linuxserver/swag
+    container_name: webserver
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=${USER_UID} # User id obtained by runnind id -u $USER
+      - PGID=${USER_GID} # Group id obtained by runnind id -g $USER
+      - TZ=Africa/Kigali
+      - URL=${DOMAIN}
+      - SUBDOMAINS=${SUBDOMAIN}
+      - VALIDATION=http
+      - EMAIL=${DOMAIN_EMAIL}
+      - ONLY_SUBDOMAINS=false 
+      - STAGING=true #optional
+    volumes:
+      - ./config:/config
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-  certbot:
-    image: certbot/certbot
-    volumes:
-        - ./data/certbot/conf:/etc/letsencrypt
-        - ./data/certbot/www:/var/www/certbot
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
