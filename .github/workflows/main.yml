@@ -16,4 +16,4 @@ jobs:
       - name: Copy readme file
         run: |
           mkdir -p ${{ secrets.SERVER_PATH }}
-          cp README.nd ${{ secrets.SERVER_PATH }}
+          cp README.md ${{ secrets.SERVER_PATH }}
