@@ -1,14 +1,12 @@
 name: CI
 on:
   push:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: 
+    runs-on:
       - first-runner
 
     steps:
