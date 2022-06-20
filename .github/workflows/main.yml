@@ -13,5 +13,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: Copy readme file
         run: |
-          mkdir -p ${{ secrets.SERVER_PATH }}
-          cp README.md ${{ secrets.SERVER_PATH }}
+          mkdir -p ${{ secrets.SERVER_PATH }} && cd ${{ secrets.SERVER_PATH }}
+          cp -r -f data docker-compose.yaml init-letsencrypt . 
