@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name:  Populate env files
         run: |
-          echo $ENV_VARS > .env
+          echo ${{ secrets.ENV_VARS }} > .env
       - name: Copy files to the server
         run: |
           mkdir -p ${{ secrets.SERVER_PATH }}
