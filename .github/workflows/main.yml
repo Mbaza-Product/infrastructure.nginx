@@ -14,4 +14,4 @@ jobs:
       - name: Copy readme file
         run: |
           mkdir -p ${{ secrets.SERVER_PATH }} && cd ${{ secrets.SERVER_PATH }}
-          cp -r -f data docker-compose.yaml init-letsencrypt . 
+          cp -r -f data . && cp -f docker-compose.yaml init-letsencrypt . 
