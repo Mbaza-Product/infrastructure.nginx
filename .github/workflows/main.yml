@@ -16,7 +16,7 @@ jobs:
           mkdir -p ${{ secrets.SERVER_PATH }}
           cp -f static-sites/* ${{ secrets.SERVER_PATH }}/config/www/ && cp -f docker-compose.yaml ${{ secrets.SERVER_PATH }} 
           cd ${{ secrets.SERVER_PATH }} && docker-compose down -v || true
-          echo ${{ secrets.ENV_VARS }} > .env
+          echo ${{ secrets.ENV_VARS }} | base64 -d > .env
           echo USER_UID=`id -u $USER` >> .env
           echo USER_GID=`id -g $USER` >> .env
           docker-compose up -d
