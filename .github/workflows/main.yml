@@ -1,8 +1,8 @@
 name: CI
 on:
-  push:
-    branches: ["main"]
-  # workflow_dispatch:
+  # push:
+    # branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,8 +14,10 @@ jobs:
       - name: Copy files to the server
         run: |
           mkdir -p ${{ secrets.SERVER_PATH }}
-          cp -f static-sites/* ${{ secrets.SERVER_PATH }}/config/www/ && cp -f docker-compose.yaml ${{ secrets.SERVER_PATH }} 
-          cd ${{ secrets.SERVER_PATH }} && docker-compose down -v || true
+          cp -rf swag/* ${{ secrets.SERVER_PATH }}/config/
+          cp -f docker-compose.yaml ${{ secrets.SERVER_PATH }}
+          docker network ls | grep reverse-proxy > /dev/null || docker network create --driver bridge reverse-proxy
+          cd ${{ secrets.SERVER_PATH }} && docker-compose down -v
           echo ${{ secrets.ENV_VARS }} > .env
           echo USER_UID=`id -u $USER` >> .env
           echo USER_GID=`id -g $USER` >> .env
